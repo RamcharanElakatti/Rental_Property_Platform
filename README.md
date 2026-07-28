@@ -138,6 +138,38 @@ npm install
 npm test
 ```
 
+## CI/CD Deployment
+
+GitHub Actions workflow: `.github/workflows/ci-cd.yml`
+
+On every pull request to `main`, the pipeline builds/tests the backend and frontend.
+
+On every push to `main`, the pipeline also deploys the frontend to Vercel production using the Vercel CLI from the `frontend` directory:
+
+```text
+vercel pull --yes --environment=production
+vercel build --prod
+vercel deploy --prebuilt --prod
+```
+
+Required GitHub repository secrets:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+Optional backend deploy hook secret:
+
+- `RENDER_DEPLOY_HOOK_URL`
+
+In Vercel, set frontend environment variables as needed:
+
+```env
+VITE_API_URL=https://your-render-backend-url/api
+VITE_ENABLE_DEMO_MODE=true
+```
+
+If deploying through the Vercel dashboard instead of GitHub Actions, set the Vercel project Root Directory to `frontend`, Build Command to `npm run build`, and Output Directory to `dist`.
 
 ## Future Enhancements
 
