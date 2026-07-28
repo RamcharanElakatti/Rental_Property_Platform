@@ -77,10 +77,9 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 Backend:
 
 ```env
-SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/property_rental_marketplace?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-SPRING_DATASOURCE_USERNAME=root
-SPRING_DATASOURCE_PASSWORD=root
-APP_JWT_SECRET=change-this-secret-to-at-least-32-characters
+SPRING_DATASOURCE_URL= Database url
+SPRING_DATASOURCE_USERNAME=username
+SPRING_DATASOURCE_PASSWORD=password
 APP_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
 APP_UPLOAD_DIR=uploads
 ```
@@ -89,7 +88,7 @@ Frontend:
 
 ```env
 VITE_API_URL=http://localhost:8080/api
-VITE_ENABLE_DEMO_MODE=true
+
 ```
 
 ## Run Locally
@@ -139,51 +138,6 @@ npm install
 npm test
 ```
 
-## Deployment
-
-Frontend to Vercel:
-
-1. Create a Vercel project with root directory `frontend`.
-2. Set `VITE_API_URL` to the deployed Render backend URL plus `/api`.
-3. Add GitHub secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
-
-Backend to Render:
-
-1. Create a Render Web Service from the repository.
-2. Set root directory to `backend`.
-3. Build command: `mvn clean package -DskipTests`
-4. Start command: `java -jar target/property-rental-backend-1.0.0.jar`
-5. Add a Render MySQL-compatible database or external MySQL provider.
-6. Set backend environment variables from `backend/.env.example`.
-7. Optional: add `RENDER_DEPLOY_HOOK_URL` to GitHub secrets.
-
-## CI/CD
-
-GitHub Actions workflow at [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml):
-
-- Checkout repository
-- Setup Java 21
-- Build backend and run tests
-- Setup Node 22
-- Install frontend dependencies
-- Run frontend tests
-- Build React app
-- Deploy frontend to Vercel when secrets are present
-- Trigger Render deploy hook when configured
-
-## Postman
-
-Import [postman/PropertyRentalMarketplace.postman_collection.json](postman/PropertyRentalMarketplace.postman_collection.json). Run the Login request first; it stores the JWT token as a collection variable.
-
-## Screenshots Placeholder
-
-Add screenshots after the app is running:
-
-- Landing page
-- Property search
-- Tenant dashboard
-- Owner dashboard
-- Admin dashboard
 
 ## Future Enhancements
 
@@ -193,6 +147,4 @@ Add screenshots after the app is running:
 - Payments and lease document workflow.
 - Audit logs and advanced reporting exports.
 
-## AI Tools Used
 
-Built with Codex as a full-stack coding assistant.
