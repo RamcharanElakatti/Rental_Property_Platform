@@ -37,9 +37,14 @@ backend/                Spring Boot API
 frontend/               React/Vite app
 database/               MySQL schema and sample data
 postman/                Postman collection
+docs/                   Technical assessment documentation
 .github/workflows/      CI/CD workflow
 docker-compose.yml      Local full-stack runtime
 ```
+
+## Technical Documentation
+
+Full assessment-ready documentation is available at [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md).
 
 ## Database Schema
 
