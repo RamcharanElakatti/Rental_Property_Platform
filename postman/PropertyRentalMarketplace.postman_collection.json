@@ -1,0 +1,220 @@
+{
+  "info": {
+    "name": "Property Rental Marketplace",
+    "description": "REST API collection for authentication, properties, bookings, favourites, notifications, owner dashboard, and admin management.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{token}}", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data && json.data.token) {",
+                  "  pm.collectionVariables.set('token', json.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tenant@globalco.test\",\n  \"password\": \"password\",\n  \"rememberMe\": true\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Register Tenant",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jordan Tenant\",\n  \"email\": \"jordan.tenant@example.com\",\n  \"password\": \"password\",\n  \"phone\": \"+1 555 0144\",\n  \"role\": \"TENANT\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/register"
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"tenant@globalco.test\"\n}" },
+            "url": "{{baseUrl}}/auth/forgot-password"
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"token\": \"paste-token-here\",\n  \"newPassword\": \"password\"\n}" },
+            "url": "{{baseUrl}}/auth/reset-password"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Properties",
+      "item": [
+        {
+          "name": "Search Properties",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/properties?city=Austin&maxRent=3500&bedrooms=2&page=0&size=12&sort=createdAt,desc"
+          }
+        },
+        {
+          "name": "Property Details",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/properties/101"
+          }
+        },
+        {
+          "name": "Create Property",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Riverside Apartment\",\n  \"description\": \"Two-bedroom rental with river views and covered parking.\",\n  \"rent\": 2750,\n  \"deposit\": 2750,\n  \"bedrooms\": 2,\n  \"bathrooms\": 2,\n  \"area\": 1220,\n  \"floor\": 7,\n  \"parking\": true,\n  \"balcony\": true,\n  \"propertyTypeId\": 1,\n  \"categoryId\": 1,\n  \"city\": \"Austin\",\n  \"state\": \"Texas\",\n  \"address\": \"12 Riverside Dr\",\n  \"zipCode\": \"78704\",\n  \"latitude\": 30.2500,\n  \"longitude\": -97.7500,\n  \"imageUrls\": [\"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80\"],\n  \"amenityIds\": [1, 2, 4, 7],\n  \"status\": \"AVAILABLE\"\n}"
+            },
+            "url": "{{baseUrl}}/properties"
+          }
+        },
+        {
+          "name": "Update Property",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Riverside Apartment\",\n  \"description\": \"Updated listing details.\",\n  \"rent\": 2800,\n  \"deposit\": 2800,\n  \"bedrooms\": 2,\n  \"bathrooms\": 2,\n  \"area\": 1220,\n  \"floor\": 7,\n  \"parking\": true,\n  \"balcony\": true,\n  \"propertyTypeId\": 1,\n  \"categoryId\": 1,\n  \"city\": \"Austin\",\n  \"state\": \"Texas\",\n  \"address\": \"12 Riverside Dr\",\n  \"zipCode\": \"78704\",\n  \"imageUrls\": [],\n  \"amenityIds\": [1, 2, 7],\n  \"status\": \"AVAILABLE\"\n}"
+            },
+            "url": "{{baseUrl}}/properties/101"
+          }
+        },
+        {
+          "name": "Upload Property Images",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "files", "type": "file", "src": [] }
+              ]
+            },
+            "url": "{{baseUrl}}/properties/101/images"
+          }
+        },
+        {
+          "name": "Delete Property",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/properties/101"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Request Visit",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"propertyId\": 101,\n  \"preferredDate\": \"2026-08-02\",\n  \"preferredTime\": \"10:30:00\"\n}" },
+            "url": "{{baseUrl}}/bookings"
+          }
+        },
+        {
+          "name": "Tenant Booking History",
+          "request": { "method": "GET", "url": "{{baseUrl}}/bookings/me" }
+        },
+        {
+          "name": "Cancel Visit",
+          "request": { "method": "PATCH", "url": "{{baseUrl}}/bookings/501/cancel" }
+        },
+        {
+          "name": "Approve Visit",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"APPROVED\",\n  \"ownerNote\": \"See you at the lobby desk.\"\n}" },
+            "url": "{{baseUrl}}/bookings/501/status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tenant",
+      "item": [
+        { "name": "Favourite Properties", "request": { "method": "GET", "url": "{{baseUrl}}/favourites" } },
+        { "name": "Add Favourite", "request": { "method": "POST", "url": "{{baseUrl}}/favourites/101" } },
+        { "name": "Remove Favourite", "request": { "method": "DELETE", "url": "{{baseUrl}}/favourites/101" } },
+        { "name": "Notifications", "request": { "method": "GET", "url": "{{baseUrl}}/notifications" } },
+        { "name": "Mark Notification Read", "request": { "method": "PATCH", "url": "{{baseUrl}}/notifications/701/read" } }
+      ]
+    },
+    {
+      "name": "Owner",
+      "item": [
+        { "name": "Owner Dashboard", "request": { "method": "GET", "url": "{{baseUrl}}/owner/dashboard" } },
+        { "name": "Owner Properties", "request": { "method": "GET", "url": "{{baseUrl}}/owner/properties" } },
+        { "name": "Owner Booking Requests", "request": { "method": "GET", "url": "{{baseUrl}}/owner/bookings" } }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        { "name": "Admin Dashboard", "request": { "method": "GET", "url": "{{baseUrl}}/admin/dashboard" } },
+        { "name": "Admin Reports", "request": { "method": "GET", "url": "{{baseUrl}}/admin/reports" } },
+        { "name": "Manage Users", "request": { "method": "GET", "url": "{{baseUrl}}/admin/users?role=TENANT" } },
+        { "name": "Toggle User Status", "request": { "method": "PATCH", "url": "{{baseUrl}}/admin/users/3/status?enabled=false" } },
+        { "name": "Manage Properties", "request": { "method": "GET", "url": "{{baseUrl}}/admin/properties" } },
+        { "name": "Manage Bookings", "request": { "method": "GET", "url": "{{baseUrl}}/admin/bookings" } }
+      ]
+    },
+    {
+      "name": "Reference Data",
+      "item": [
+        { "name": "Categories", "request": { "method": "GET", "url": "{{baseUrl}}/categories" } },
+        { "name": "Property Types", "request": { "method": "GET", "url": "{{baseUrl}}/property-types" } },
+        { "name": "Amenities", "request": { "method": "GET", "url": "{{baseUrl}}/amenities" } },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Penthouse\",\n  \"description\": \"Top-floor premium rentals\"\n}" },
+            "url": "{{baseUrl}}/categories"
+          }
+        }
+      ]
+    }
+  ]
+}

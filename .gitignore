@@ -1,0 +1,19 @@
+# Build output
+backend/target/
+frontend/dist/
+frontend/node_modules/
+backend/.mvn/wrapper/apache-maven-*/
+backend/.mvn/wrapper/apache-maven-*-bin.zip
+
+# Local runtime files
+uploads/
+*.log
+.env
+backend/.env
+frontend/.env
+
+# IDE and OS noise
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
