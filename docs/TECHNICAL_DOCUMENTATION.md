@@ -10,7 +10,7 @@
 | Version | 1.0.0 |
 | Technology Stack | React 19, Vite, Bootstrap 5, Java 21, Spring Boot 3, Spring Security, JWT, Spring Data JPA, MySQL, Docker, GitHub Actions, Vercel, Render |
 | Repository Link | https://github.com/RamcharanElakatti/Rental_Property_Platform.git |
-| Deployment Links | Frontend: `<Vercel URL>`; Backend: `<Render URL>` |
+
 
 ## 2. Table Of Contents
 
