@@ -593,8 +593,8 @@ Backend:
 
 ```env
 SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/property_rental_marketplace
-SPRING_DATASOURCE_USERNAME=root
-SPRING_DATASOURCE_PASSWORD=root
+SPRING_DATASOURCE_USERNAME=username
+SPRING_DATASOURCE_PASSWORD=password
 APP_JWT_SECRET=change-this-secret-to-at-least-32-characters
 APP_CORS_ALLOWED_ORIGINS=http://localhost:5173
 APP_UPLOAD_DIR=uploads
@@ -796,11 +796,3 @@ git push origin main
 
 React, Vite, React Router, Bootstrap, Axios, React Icons, Chart.js, Spring Boot, Spring Security, Spring Data JPA, Hibernate, Lombok, MySQL Connector/J, JJWT, Springdoc OpenAPI, Vitest.
 
-### Project Statistics
-
-| Metric | Value |
-| --- | --- |
-| Lines Of Code | `<placeholder>` |
-| Repository Link | https://github.com/RamcharanElakatti/Rental_Property_Platform.git |
-| Frontend Deployment Link | `<Vercel deployment URL>` |
-| Backend Deployment Link | `<Render deployment URL>` |
